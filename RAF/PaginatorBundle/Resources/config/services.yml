@@ -1,0 +1,17 @@
+parameters:
+    raf_paginator.extension: RAF\PaginatorBundle\Twig\Extensions\PaginatorExtension
+    raf_paginator.class: RAF\PaginatorBundle\Utils\Paginator
+
+services:
+    raf_twig_paginator_extension:
+        class: %raf_paginator.extension%
+        tags:
+          - { name: twig.extension }
+        arguments:
+            router: "@router"
+            paginator: "@paginator"
+        calls:
+          - [setRequest, ['@?request=']]
+
+    raf_paginator:
+        class: %raf_paginator.class%
